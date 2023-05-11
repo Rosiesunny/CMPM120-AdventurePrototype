@@ -97,14 +97,152 @@ class Intro extends Phaser.Scene {
         super('intro')
     }
     create() {
-        this.add.text(50,50, "Adventure awaits!").setFontSize(50);
+        this.add.text(50,50, "well then!").setFontSize(50);
         this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
         this.input.on('pointerdown', () => {
+            this.cameras.main.fade(1000, 0,0,0);
+            this.time.delayedCall(1000, () => this.scene.start('introscene1'));
+        });
+    }
+}
+
+class IntroScene1 extends Phaser.Scene {
+    constructor() {
+        super('introscene1')
+    }
+
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("intro1", "images/intro1.png");
+    }
+
+    create() {
+        let img1 = this.add.image(960, -120, "intro1").setOrigin(0.5, 0).setScale(2).setAlpha(0);
+        this.tweens.add({
+            targets: img1,
+            duration:1000,
+            alpha: 1,
+        })
+        this.tweens.add({
+            targets: img1,
+            delay:1000,
+            duration:8000,
+            y:0,
+        })
+        this.add.text(50,50, "well then!").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.input.once('pointerdown', () => {
+            this.cameras.main.fade(1000, 0,0,0);
+            this.time.delayedCall(1000, () => this.scene.start('introscene2'));
+        });
+    }
+}
+
+class IntroScene2 extends Phaser.Scene {
+    constructor() {
+        super('introscene2')
+    }
+
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("intro1", "images/intro1.png");
+        this.load.image("intro2", "images/intro2.png");
+    }
+
+    create() {
+        let img2 = this.add.image(960, 0, "intro2").setOrigin(0.5, 0).setScale(2).setAlpha(0);
+        this.tweens.add({
+            targets: img2,
+            duration:1000,
+            alpha: 1,
+        })
+        this.tweens.add({
+            targets: img2,
+            delay:1000,
+            duration:8000,
+            y:-120,
+        })
+
+        
+        this.add.text(50,50, "well then!").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.input.once('pointerdown', () => {
+            this.cameras.main.fade(1000, 0,0,0);
+            this.time.delayedCall(1000, () => this.scene.start('introscene3'));
+        });
+    }
+}
+
+class IntroScene3 extends Phaser.Scene {
+    constructor() {
+        super('introscene3')
+    }
+
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("intro2", "images/intro2.png");
+        this.load.image("intro3", "images/intro3.png");
+    }
+
+    create() {
+        let img3 = this.add.image(960, -120, "intro3").setOrigin(0.5, 0).setScale(2).setAlpha(0);
+        this.tweens.add({
+            targets: img3,
+            duration:1000,
+            alpha: 1,
+        })
+        this.tweens.add({
+            targets: img3,
+            delay:1000,
+            duration:8000,
+            y:0,
+        })
+
+        
+        this.add.text(50,50, "well then!").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.input.once('pointerdown', () => {
+            this.cameras.main.fade(1000, 0,0,0);
+            this.time.delayedCall(1000, () => this.scene.start('introscene4'));
+        });
+    }
+}
+
+class IntroScene4 extends Phaser.Scene {
+    constructor() {
+        super('introscene4')
+    }
+
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("intro3", "images/intro3.png");
+        this.load.image("intro4", "images/intro4.png");
+    }
+
+    create() {
+        let img4 = this.add.image(960, 0, "intro4").setOrigin(0.5, 0).setScale(2).setAlpha(0);
+        this.tweens.add({
+            targets: img4,
+            duration:1000,
+            alpha: 1,
+        })
+        this.tweens.add({
+            targets: img4,
+            delay:1000,
+            duration:8000,
+            y:-120,
+        })
+
+        
+        this.add.text(50,50, "well then!").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.input.once('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('demo1'));
         });
     }
 }
+
 
 class Outro extends Phaser.Scene {
     constructor() {
@@ -123,9 +261,18 @@ const game = new Phaser.Game({
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 1920,
-        height: 1080
+        height: 1080,
+        zoom: 5,
+        pixelArt: true,
     },
-    scene: [Intro, Demo1, Demo2, Outro],
+    scene: [Intro, IntroScene1, IntroScene2, IntroScene3, IntroScene4, Demo1, Demo2, Outro],
     title: "Adventure Game",
 });
 
+
+
+// NOTES ON SIZES FOR SELF
+// 1920X1080 = OVERALL FULLSCREEN SIZE
+// 850 X 600 = IMAGES SIZE
+// 1700 X 1200 = IMAGES SIZE X2
+// 120 pixels vertically over the 1080 limit, can scroll up and down. -120 to start at the bottom of the pic, 0 to start at the top, assuming y origin is 0
