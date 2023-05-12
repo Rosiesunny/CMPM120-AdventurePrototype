@@ -3,8 +3,14 @@ class Demo1 extends AdventureScene {
         super("demo1", "First Room");
     }
 
-    onEnter() {
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("pathstart", "images/pathstart.png");
+    }
 
+    onEnter() {
+        this.add.image(960, -120, "pathstart").setOrigin(0.5, 0).setScale(2).setAlpha(.3);//change alpha to 1 if edited to be actual assets
+        this.add.text(500,100, "AAAAAAAAAAAAAAAAA").setFontSize(20);
         let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -117,6 +123,7 @@ class IntroScene1 extends Phaser.Scene {
     }
 
     create() {
+        this.time.delayedCall(800, () => this.scene.start('demo1'));//shortcut past intro scenes
         let img1 = this.add.image(960, -120, "intro1").setOrigin(0.5, 0).setScale(2).setAlpha(0);
         this.tweens.add({
             targets: img1,
