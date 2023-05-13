@@ -1,0 +1,150 @@
+{
+    "PathStart": {
+        "backgroundKey": "pathStart",
+        "items": [
+            {
+                "name": "startToBerryArrow",
+                "x": 180,
+                "y": 1000,
+                "spriteKey": "arrow",
+                "angle": -90,
+                "alpha": ".5",
+                "idleAnim" : {
+                    "x": 200,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.2",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "I'd harvest the berry bushes over there with my mom way back.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pberry"
+                }
+            },
+            {
+                "name": "startToCabinArrow",
+                "x": 1050,
+                "y": 500,
+                "spriteKey": "arrow",
+                "alpha": ".5",
+                "idleAnim" : {
+                    "y": 520,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.2",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "My uncle's cabin is up here. He's not home right now though.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pcabin"
+                }
+                
+            },
+            {
+                "name": "startToStreamArrow",
+                "x": 1750,
+                "y": 900,
+                "spriteKey": "arrow",
+                "angle": 90,
+                "alpha": ".5",
+                "idleAnim" : {
+                    "x": 1730,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.2",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "Theres a little creek that runs through this area. Great for splashing!",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pstream"
+                }
+            }
+        ]
+    },
+
+    "PathBerry": {
+        "backgroundKey": "pathBerry",
+        "items": [
+            {
+                "name": "squareBerries",
+                "x": 380,
+                "y": 880,
+                "spriteKey": "squareBerries",
+                "alpha": "1",
+                "idleAnim" : {
+                    "duration": 1200,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.5"
+                 },
+                "pointeroverMsg": "Square berries! Very tasty and sweet. We'd make so many pies outta these bad boys every fall."
+            },
+            {
+                "name": "triangleBerries",
+                "x": 1050,
+                "y": 440,
+                "spriteKey": "triangleBerries",
+                "alpha": "1",
+                "idleAnim" : {
+                    "duration": 1200,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.5"
+                 },
+                "pointeroverMsg": "They look like doritos, but it's a lie. *shiver* Don't wanna do that again.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pcabin"
+                }
+                
+            },
+            {
+                "name": "circleBerries",
+                "x": 1330,
+                "y": 800,
+                "spriteKey": "circleBerries",
+                "alpha": "1",
+                "idleAnim" : {
+                    "duration": 1200,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.5"
+                 },
+                "pointeroverMsg": "Mom said never to eat these and that I'd explode into a million chunks if I did. Well, actually, I think she said I'd die of poison, but I think it's more fun the other way.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pstream"
+                }
+            },
+            {
+                "name": "berryToStartArrow",
+                "x": 1690,
+                "y": 400,
+                "spriteKey": "arrow",
+                "angle": 90,
+                "alpha": ".5",
+                "idleAnim" : {
+                    "x": 1670,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.2",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "Maybe I could just go back to the main path's clearing? Do some thinking and re-orient, I guess? I mean. Mostly the thinking, I know this area pretty good",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pstream"
+                }
+            }
+        ]
+        
+    }
+
+}

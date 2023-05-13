@@ -1,71 +1,48 @@
-class Demo1 extends AdventureScene {
+class PathStart extends AdventureScene {
     constructor() {
-        super("demo1", "First Room");
+        super("pstart", "Path Start");
     }
-
-    preload() {
-        this.load.path = "./assets/";
-        this.load.image("pathstart", "images/pathstart.png");
-    }
-
     onEnter() {
-        this.add.image(960, -120, "pathstart").setOrigin(0.5, 0).setScale(2).setAlpha(.3);//change alpha to 1 if edited to be actual assets
-        this.add.text(500,100, "AAAAAAAAAAAAAAAAA").setFontSize(20);
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
-            .on('pointerdown', () => {
-                this.showMessage("No touching!");
-                this.tweens.add({
-                    targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
-                    yoyo: true,
-                    ease: 'Sine.inOut',
-                    duration: 100
-                });
-            });
-
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
-            })
-            .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => key.destroy()
-                });
-            })
-
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
-            })
-            .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
-                }
-            })
-
+        this.setupScene();
     }
 }
+
+class PathBerry extends AdventureScene {
+    constructor() {
+        super("pberry", "Path Berry");
+    }
+    onEnter() {
+        this.setupScene();
+    }
+}
+class PathBike extends AdventureScene {
+    constructor() {
+        super("pbike", "Path Bike");
+    }
+    onEnter() {
+        this.setupScene();
+    }
+}
+
+class PathCabin extends AdventureScene {
+    constructor() {
+        super("pcabin", "Path Cabin");
+    }
+    onEnter() {
+        this.setupScene();
+    }
+}
+
+class PathStream extends AdventureScene {
+    constructor() {
+        super("pstream", "Path Stream");
+    }
+    onEnter() {
+        this.setupScene();
+    }
+}
+
+
 
 class Demo2 extends AdventureScene {
     constructor() {
@@ -102,6 +79,37 @@ class Intro extends Phaser.Scene {
     constructor() {
         super('intro')
     }
+
+    // PRELOAD ALL ITEMS HERE
+
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("intro1", "images/backgrounds/intro1.png");
+        this.load.image("intro2", "images/backgrounds/intro2.png");
+        this.load.image("intro3", "images/backgrounds/intro3.png");
+        this.load.image("intro4", "images/backgrounds/intro4.png");
+
+        this.load.image("pathStart", "images/backgrounds/pathstart.png");
+        this.load.image("pathBerry", "images/backgrounds/pathberry.png");
+        this.load.image("pathBike", "images/backgrounds/pathbike.png");
+        this.load.image("pathStream", "images/backgrounds/pathstream.png");
+        this.load.image("pathCabin", "images/backgrounds/pathcabin.png");
+
+        this.load.image("arrow", "images/arrow.png");
+        this.load.image("circleBerries", "images/circleberries.png");
+        this.load.image("squareBerries", "images/squareberries.png");
+        this.load.image("triangleBerries", "images/triangleberries.png");
+        this.load.image("brokenBike", "images/brokenbike.png");
+        this.load.image("backpack", "images/backpack.png");
+        this.load.image("cabinDistant", "images/cabindistant.png");
+        this.load.image("cabinUpCloser", "images/cabinupcloser.png");
+        this.load.image("stream", "images/stream.png");
+
+        this.load.json("sceneData", "sceneData.json");
+
+
+
+    }
     create() {
         this.add.text(50,50, "well then!").setFontSize(50);
         this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
@@ -117,13 +125,8 @@ class IntroScene1 extends Phaser.Scene {
         super('introscene1')
     }
 
-    preload() {
-        this.load.path = "./assets/";
-        this.load.image("intro1", "images/intro1.png");
-    }
-
     create() {
-        this.time.delayedCall(800, () => this.scene.start('demo1'));//shortcut past intro scenes
+        this.time.delayedCall(800, () => this.scene.start('pstart'));//shortcut past intro scenes
         let img1 = this.add.image(960, -120, "intro1").setOrigin(0.5, 0).setScale(2).setAlpha(0);
         this.tweens.add({
             targets: img1,
@@ -148,12 +151,6 @@ class IntroScene1 extends Phaser.Scene {
 class IntroScene2 extends Phaser.Scene {
     constructor() {
         super('introscene2')
-    }
-
-    preload() {
-        this.load.path = "./assets/";
-        this.load.image("intro1", "images/intro1.png");
-        this.load.image("intro2", "images/intro2.png");
     }
 
     create() {
@@ -185,12 +182,6 @@ class IntroScene3 extends Phaser.Scene {
         super('introscene3')
     }
 
-    preload() {
-        this.load.path = "./assets/";
-        this.load.image("intro2", "images/intro2.png");
-        this.load.image("intro3", "images/intro3.png");
-    }
-
     create() {
         let img3 = this.add.image(960, -120, "intro3").setOrigin(0.5, 0).setScale(2).setAlpha(0);
         this.tweens.add({
@@ -218,12 +209,6 @@ class IntroScene3 extends Phaser.Scene {
 class IntroScene4 extends Phaser.Scene {
     constructor() {
         super('introscene4')
-    }
-
-    preload() {
-        this.load.path = "./assets/";
-        this.load.image("intro3", "images/intro3.png");
-        this.load.image("intro4", "images/intro4.png");
     }
 
     create() {
@@ -272,7 +257,7 @@ const game = new Phaser.Game({
         zoom: 5,
         pixelArt: true,
     },
-    scene: [Intro, IntroScene1, IntroScene2, IntroScene3, IntroScene4, Demo1, Demo2, Outro],
+    scene: [Intro, IntroScene1, IntroScene2, IntroScene3, IntroScene4, PathStart, PathBerry, PathBike, PathCabin, PathStream, Demo2, Outro],
     title: "Adventure Game",
 });
 

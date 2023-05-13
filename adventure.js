@@ -10,7 +10,7 @@ class AdventureScene extends Phaser.Scene {
     }
 
     create() {
-        this.transitionDuration = 1000;
+        this.transitionDuration = 1200;
 
         this.w = this.game.config.width;
         this.h = this.game.config.height;
@@ -147,5 +147,92 @@ class AdventureScene extends Phaser.Scene {
 
     onEnter() {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
+    }
+
+    setPointerMessage(item, msg) {
+        item.on('pointerover', () => {
+            this.showMessage(msg);
+        });
+    }
+
+    //adding setup functions
+    setupScene() {
+        //loading items in
+        let sceneDataJSON = this.cache.json.get('sceneData');
+        let sceneData = sceneDataJSON[this.constructor.name];
+        this.items = [];
+        //set background
+        let backgroundName = sceneData.backgroundKey;
+        this.add.image(960, 0, backgroundName).setOrigin(0.5, 0).setScale(2).setAlpha(.5);
+
+        for (let item of sceneData.items) {
+            let angle = (item.angle) ? item.angle : 0;
+            let alpha = (item.alpha) ? item.alpha : 1;
+
+            this.items[item.name] = this.add.sprite(item.x, item.y, item.spriteKey).setAngle(angle).setScale(2).setInteractive().setAlpha(alpha);
+            
+            if (item.idleAnim) {
+                let tweenConfig = {targets: this.items[item.name]};
+                for (let attribute in item.idleAnim) {
+                    tweenConfig[attribute] = item.idleAnim[attribute];
+                }
+                this.tweens.add(tweenConfig);
+            }
+
+            if (item.pointeroverMsg) this.setPointerMessage(this.items[item.name], item.pointeroverMsg);
+
+            if (item.pointerdownFX) {
+                switch(item.pointerdownFX.type) {
+                    case "advTransition" :
+                        this.items[item.name].on('pointerdown', () => this.gotoScene(item.pointerdownFX.target));
+                        break;
+
+                    case "itemPickup" :
+                        this.items[item.name].on('pointerdown', () => {
+                            this.pickupItem(item.name);
+                            this.pickupRefresh();
+                            if (item.pointerdownFX.swapTarget) {
+                                let swapTarget = item.pointerdownFX.swapTarget;
+                                if (this.hasItem(swapTarget)) {
+                                    this.loseItem(swapTarget);
+                                    this.putDownItem(swapTarget);
+                                }
+                            }
+                        });
+
+                        if (this.hasItem(item.name)) {
+                            this.items[item.name].setAlpha(0);
+                            this.items[item.name].disableInteractive();
+                        }
+                        break;
+
+                    case "decoy":
+                        this.items[item.name].on('pointerdown', () => {
+                            this.items[item.name].disableInteractive();
+                            this.tweens.add({
+                                targets: this.items[item.name],
+                                x: '+= 40',
+                                ease: 'Sine.inOut',
+                                yoyo: true,
+                                duration: 200,
+                                repeat: 1
+                            }).setCallback('onComplete', () => {
+                                this.items[item.name].setInteractive();
+                            });
+
+                            let sfx = this.sound.get("refuse");
+                            if (sfx == null) sfx = this.sound.add("refuse", {loop: false});
+                            sfx.play();
+
+                            if (item.pointerdownFX.message) this.showMessage(item.pointerdownFX.message);
+                        });
+                        break;
+
+                    default:
+                        console.log("Effect type not supported: " + item.pointerdownFX.type);
+                }
+            }
+
+        }
     }
 }
