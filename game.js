@@ -106,6 +106,7 @@ class Intro extends Phaser.Scene {
         this.load.image("stream", "images/stream.png");
 
         this.load.json("sceneData", "sceneData.json");
+        this.load.json("flags", "flags.json");
 
 
 
@@ -126,7 +127,6 @@ class IntroScene1 extends Phaser.Scene {
     }
 
     create() {
-        this.time.delayedCall(800, () => this.scene.start('pstart'));//shortcut past intro scenes
         let img1 = this.add.image(960, -120, "intro1").setOrigin(0.5, 0).setScale(2).setAlpha(0);
         this.tweens.add({
             targets: img1,
@@ -140,7 +140,7 @@ class IntroScene1 extends Phaser.Scene {
             y:0,
         })
         this.add.text(50,50, "well then!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(50,100, "Click anywhere to continue.").setFontSize(20);
         this.input.once('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('introscene2'));
@@ -168,8 +168,8 @@ class IntroScene2 extends Phaser.Scene {
         })
 
         
-        this.add.text(50,50, "well then!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(50,50, "I do not have time to make full colored pixel assets right now").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to continue.").setFontSize(20);
         this.input.once('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('introscene3'));
@@ -197,8 +197,8 @@ class IntroScene3 extends Phaser.Scene {
         })
 
         
-        this.add.text(50,50, "well then!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(50,50, "the rest of the backgrounds are sketches for time management").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to continue.").setFontSize(20);
         this.input.once('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('introscene4'));
@@ -226,11 +226,11 @@ class IntroScene4 extends Phaser.Scene {
         })
 
         
-        this.add.text(50,50, "well then!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(50,50, "Hope it's enjoyable regardless!").setFontSize(50);
+        this.add.text(50,100, "Click anywhere to continue.").setFontSize(20);
         this.input.once('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
-            this.time.delayedCall(1000, () => this.scene.start('demo1'));
+            this.time.delayedCall(1000, () => this.scene.start('pstart'));
         });
     }
 }

@@ -20,15 +20,15 @@ class AdventureScene extends Phaser.Scene {
         //this.cameras.main.setBackgroundColor('#444');
         this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
 
-        this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
+        this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0).setAlpha(.7);
         this.add.text(this.w * 0.75 + this.s, this.s)
             .setText(this.name)
             .setStyle({ fontSize: `${3 * this.s}px` })
-            .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
+            .setWordWrapWidth(this.w * 0.25 - 2 * this.s)
         
         this.messageBox = this.add.text(this.w * 0.75 + this.s, this.h * 0.33)
-            .setStyle({ fontSize: `${2 * this.s}px`, color: '#eea' })
-            .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
+            .setStyle({ fontSize: `${2 * this.s}px`, color: '#eea', backgroundColor: '#000'})
+            .setWordWrapWidth(this.w * 0.25 - 2 * this.s)
 
         this.inventoryBanner = this.add.text(this.w * 0.75 + this.s, this.h * 0.66)
             .setStyle({ fontSize: `${2 * this.s}px` })
@@ -55,7 +55,7 @@ class AdventureScene extends Phaser.Scene {
     }
 
     showMessage(message) {
-        this.messageBox.setText(message);
+        this.messageBox.setText(message)
         this.tweens.add({
             targets: this.messageBox,
             alpha: { from: 1, to: 0 },
@@ -155,6 +155,18 @@ class AdventureScene extends Phaser.Scene {
         });
     }
 
+    pickupItem(itemName) {
+        this.gainItem(itemName);
+
+        let item = this.items[itemName];
+        this.tweens.add({
+            targets: this.items[itemName],
+            y: item.y - 50,
+            alpha: 0,
+            duration: 500
+        }).setCallback("onComplete", () => item.disableInteractive());
+    }
+
     //adding setup functions
     setupScene() {
         //loading items in
@@ -225,7 +237,7 @@ class AdventureScene extends Phaser.Scene {
                             sfx.play();
 
                             if (item.pointerdownFX.message) this.showMessage(item.pointerdownFX.message);
-                        });
+                        })
                         break;
 
                     default:

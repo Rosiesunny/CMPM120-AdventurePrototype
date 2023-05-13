@@ -8,13 +8,13 @@
                 "y": 1000,
                 "spriteKey": "arrow",
                 "angle": -90,
-                "alpha": ".5",
+                "alpha": ".3",
                 "idleAnim" : {
                     "x": 200,
                     "duration": 1500,
                     "yoyo": true,
                     "repeat": -1,
-                    "alpha": "0.2",
+                    "alpha": "0.1",
                     "ease": "Bounce.easeIn"
                  },
                 "pointeroverMsg": "I'd harvest the berry bushes over there with my mom way back.",
@@ -24,23 +24,23 @@
                 }
             },
             {
-                "name": "startToCabinArrow",
+                "name": "startToBikeArrow",
                 "x": 1050,
                 "y": 500,
                 "spriteKey": "arrow",
-                "alpha": ".5",
+                "alpha": ".3",
                 "idleAnim" : {
                     "y": 520,
                     "duration": 1500,
                     "yoyo": true,
                     "repeat": -1,
-                    "alpha": "0.2",
+                    "alpha": "0.1",
                     "ease": "Bounce.easeIn"
                  },
-                "pointeroverMsg": "My uncle's cabin is up here. He's not home right now though.",
+                "pointeroverMsg": "My bike is up there I think.",
                 "pointerdownFX": {
                     "type": "advTransition",
-                    "target": "pcabin"
+                    "target": "pbike"
                 }
                 
             },
@@ -50,13 +50,13 @@
                 "y": 900,
                 "spriteKey": "arrow",
                 "angle": 90,
-                "alpha": ".5",
+                "alpha": ".3",
                 "idleAnim" : {
                     "x": 1730,
                     "duration": 1500,
                     "yoyo": true,
                     "repeat": -1,
-                    "alpha": "0.2",
+                    "alpha": "0.1",
                     "ease": "Bounce.easeIn"
                  },
                 "pointeroverMsg": "Theres a little creek that runs through this area. Great for splashing!",
@@ -76,6 +76,7 @@
                 "x": 380,
                 "y": 880,
                 "spriteKey": "squareBerries",
+                "checkFlags": true,
                 "alpha": "1",
                 "idleAnim" : {
                     "duration": 1200,
@@ -83,7 +84,10 @@
                     "repeat": -1,
                     "alpha": "0.5"
                  },
-                "pointeroverMsg": "Square berries! Very tasty and sweet. We'd make so many pies outta these bad boys every fall."
+                "pointeroverMsg": "Square berries! Very tasty and sweet. We'd make so many pies outta these bad boys every fall.",
+                "pointerdownFX": {
+                    "type": "itemPickup"
+                }
             },
             {
                 "name": "triangleBerries",
@@ -99,8 +103,7 @@
                  },
                 "pointeroverMsg": "They look like doritos, but it's a lie. *shiver* Don't wanna do that again.",
                 "pointerdownFX": {
-                    "type": "advTransition",
-                    "target": "pcabin"
+                    "type": "itemPickup"
                 }
                 
             },
@@ -118,8 +121,7 @@
                  },
                 "pointeroverMsg": "Mom said never to eat these and that I'd explode into a million chunks if I did. Well, actually, I think she said I'd die of poison, but I think it's more fun the other way.",
                 "pointerdownFX": {
-                    "type": "advTransition",
-                    "target": "pstream"
+                    "type": "itemPickup"
                 }
             },
             {
@@ -128,23 +130,148 @@
                 "y": 400,
                 "spriteKey": "arrow",
                 "angle": 90,
-                "alpha": ".5",
+                "alpha": ".3",
                 "idleAnim" : {
                     "x": 1670,
                     "duration": 1500,
                     "yoyo": true,
                     "repeat": -1,
-                    "alpha": "0.2",
+                    "alpha": "0.1",
                     "ease": "Bounce.easeIn"
                  },
                 "pointeroverMsg": "Maybe I could just go back to the main path's clearing? Do some thinking and re-orient, I guess? I mean. Mostly the thinking, I know this area pretty good",
                 "pointerdownFX": {
                     "type": "advTransition",
-                    "target": "pstream"
+                    "target": "pstart"
                 }
             }
         ]
         
+    },
+    "PathBike": {
+        "backgroundKey": "pathBike",
+        "items": [
+            {
+                "name": "bikeToStart",
+                "x": 950,
+                "y": 1000,
+                "angle": 180,
+                "spriteKey": "arrow",
+                "alpha": ".3",
+                "idleAnim" : {
+                    "y": 1020,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.1",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "Could go back to where I started, I guess? Why not.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pstart"
+                }
+                
+            },
+            {
+                "name": "distantCabin",
+                "x": 690,
+                "y": 450,
+                "spriteKey": "cabinDistant",
+                "pointeroverMsg": "My uncle's cabin! The lap of luxury if laps of luxury had a lot more fleas.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pcabin"
+                }
+            },
+            {
+                "name": "brokenBike",
+                "x": 1210,
+                "y": 830,
+                "spriteKey": "brokenBike",
+                "pointeroverMsg": "Ah. Forgot I broke that. It'll be a miracle to get that thing working at this point."
+            },
+            {
+                "name": "backpack",
+                "x": 1620,
+                "y": 890,
+                "spriteKey": "backpack",
+                "pointeroverMsg": "My backpack! Surprisingly in-tact. Why does it look so huge???",
+                "pointerdownFX": {
+                    "type": "itemPickup"
+                }
+            }
+
+        ]
+    },
+    "PathCabin": {
+        "backgroundKey": "pathCabin",
+        "items": [
+            {
+                "name": "cabinToBike",
+                "x": 1550,
+                "y": 1000,
+                "angle": 180,
+                "spriteKey": "arrow",
+                "alpha": ".3",
+                "idleAnim" : {
+                    "y": 1020,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.1",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "I'm not gonna hang out here for now, might as well hang out with my demolished bike.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pbike"
+                }
+                
+            },
+            {
+                "name": "upCloseCabin",
+                "x": 890,
+                "y": 780,
+                "spriteKey": "cabinUpCloser",
+                "pointeroverMsg": "Damn it, I forgot he's out buying a new mirror. I think there was a spare key around here somewhere."
+            }
+        ]
+    },
+    "PathStream": {
+        "backgroundKey": "pathStream",
+        "items": [
+            {
+                "name": "streamToStart",
+                "x": 180,
+                "y": 800,
+                "angle": -90,
+                "spriteKey": "arrow",
+                "alpha": ".3",
+                "idleAnim" : {
+                    "x": 200,
+                    "duration": 1500,
+                    "yoyo": true,
+                    "repeat": -1,
+                    "alpha": "0.1",
+                    "ease": "Bounce.easeIn"
+                 },
+                "pointeroverMsg": "That's enough looking at water for now. Back to the middle of everything again.",
+                "pointerdownFX": {
+                    "type": "advTransition",
+                    "target": "pstart"
+                }
+                
+            },
+            {
+                "name": "stream",
+                "x": 1100,
+                "y": 620,
+                "spriteKey": "stream",
+                "pointeroverMsg": "Slurp slurp. Tasty Creek water. (It's actually pretty clean honestly)"
+            }
+        ]
     }
+
 
 }
